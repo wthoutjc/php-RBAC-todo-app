@@ -31,4 +31,9 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::destroy($id);
     }
+
+    public function findByGoogleId(string $googleId)
+    {
+        return User::where('google_id', $googleId)->first();
+    }
 }

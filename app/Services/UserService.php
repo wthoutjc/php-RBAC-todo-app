@@ -37,4 +37,9 @@ class UserService
     {
         return $this->userRepository->destroy($id);
     }
+
+    public function findByGoogleId(string $googleId)
+    {
+        return $this->userRepository->findByGoogleId($googleId);
+    }
 }
