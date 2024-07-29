@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('slug')->unique();
             $table->string('title');
             $table->text('description');
             $table->uuid('user_id')->constrained('users')->onDelete('cascade');

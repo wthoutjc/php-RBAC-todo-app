@@ -9,12 +9,12 @@ class TaskRepository implements TaskRepositoryInterface
 {
     public function all()
     {
-        return Task::all();
+        return Task::orderby('created_at', 'desc')->paginate();
     }
 
-    public function find($id)
+    public function show($id)
     {
-        return Task::find($id);
+        return Task::show($id);
     }
 
     public function create(array $data)

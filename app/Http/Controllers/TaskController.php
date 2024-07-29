@@ -18,10 +18,10 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
-        // $request->validate([
-        //     'page' => 'integer|min:1',
-        //     'per_page' => 'integer|min:1|max:100',
-        // ]);
+        $request->validate([
+            'page' => 'integer|min:1',
+            'per_page' => 'integer|min:1|max:100',
+        ]);
 
         $users = $this->taskService->all();
         return response()->json($users);
@@ -33,19 +33,19 @@ class TaskController extends Controller
             'id' => 'required|uuid|exists:tasks,id',
         ]);
 
-        $user = $this->taskService->find($id);
+        $user = $this->taskService->show($id);
         return response()->json($user);
     }
 
     public function store(StoreTaskRequest $request)
     {
-        $user = $this->taskService->create($request->all());
-        return response()->json($user);
+        $user = $this->taskService->create($request->validated());
+        return response()->json($user, 201);
     }
 
     public function update(UpdateTaskRequest $request, $id)
     {
-        $user = $this->taskService->update($request->all(), $id);
+        $user = $this->taskService->update($request->validated(), $id);
         return response()->json($user);
     }
 

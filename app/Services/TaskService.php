@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Repositories\Interfaces\TaskRepositoryInterface;
+use App\Repositories\TaskRepository;
 
 class TaskService
 {
     protected $taskRepository;
 
-    public function __construct(TaskRepositoryInterface $taskRepository)
+    public function __construct(TaskRepository $taskRepository)
     {
         $this->taskRepository = $taskRepository;
     }
@@ -18,9 +18,9 @@ class TaskService
         return $this->taskRepository->all();
     }
 
-    public function find($id)
+    public function show($id)
     {
-        return $this->taskRepository->find($id);
+        return $this->taskRepository->show($id);
     }
 
     public function create(array $data)

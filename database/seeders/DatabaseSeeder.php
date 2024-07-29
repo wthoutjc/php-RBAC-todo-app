@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
         ]);
 
-        $user_role = Role::create([
+        Role::create([
             'id' => \Illuminate\Support\Str::uuid(),
             'name' => 'user',
         ]);

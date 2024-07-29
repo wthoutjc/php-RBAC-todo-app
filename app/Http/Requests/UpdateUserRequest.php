@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class StoreTaskRequest extends ApiFormRequest
+class UpdateUserRequest extends ApiFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,11 +20,9 @@ class StoreTaskRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'slug' => 'required|string|unique:tasks,slug',
-            'description' => 'required|string',
-            'user_id' => 'required|exists:users,id',
-            'status' => 'required|in:pending,in progress,completed',
+            'name' => 'string|max:255',
+            'email' => 'email|max:255|unique:users,email',
+            'password' => 'string|min:8',
         ];
     }
 }
