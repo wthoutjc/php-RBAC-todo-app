@@ -16,23 +16,19 @@ class TaskController extends Controller
         $this->taskService = $taskService;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, string $user_id)
     {
         $request->validate([
             'page' => 'integer|min:1',
             'per_page' => 'integer|min:1|max:100',
         ]);
 
-        $users = $this->taskService->all();
+        $users = $this->taskService->all($user_id);
         return response()->json($users);
     }
 
-    public function show(Request $request, $id)
+    public function show($id)
     {
-        $request->validate([
-            'id' => 'required|uuid|exists:tasks,id',
-        ]);
-
         $user = $this->taskService->show($id);
         return response()->json($user);
     }

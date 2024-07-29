@@ -9,5 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::apiResource('tasks', TaskController::class);
+Route::apiResource('tasks', TaskController::class)->except('index');
 Route::apiResource('users', UserController::class);
+Route::get('users/{user}/tasks', [TaskController::class, 'index'])->name('users.tasks.index');

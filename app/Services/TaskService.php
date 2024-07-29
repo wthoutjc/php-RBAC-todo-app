@@ -13,9 +13,9 @@ class TaskService
         $this->taskRepository = $taskRepository;
     }
 
-    public function all()
+    public function all(string $user_id)
     {
-        return $this->taskRepository->all();
+        return $this->taskRepository->all($user_id);
     }
 
     public function show($id)

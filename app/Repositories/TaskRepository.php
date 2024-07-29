@@ -7,14 +7,16 @@ use App\Repositories\Interfaces\TaskRepositoryInterface;
 
 class TaskRepository implements TaskRepositoryInterface
 {
-    public function all()
+    public function all(string $user_id)
     {
-        return Task::orderby('created_at', 'desc')->paginate();
+        return Task::where('user_id', $user_id)
+            ->orderby('created_at', 'desc')
+            ->paginate();
     }
 
     public function show($id)
     {
-        return Task::show($id);
+        return Task::find($id);
     }
 
     public function create(array $data)
