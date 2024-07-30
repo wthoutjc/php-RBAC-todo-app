@@ -16,7 +16,8 @@ class TaskRepository implements TaskRepositoryInterface
 
     public function show($id)
     {
-        return Task::find($id);
+        // Include the files relationship
+        return Task::with('files')->find($id);
     }
 
     public function create(array $data)

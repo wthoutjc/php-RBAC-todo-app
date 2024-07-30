@@ -23,8 +23,9 @@ class StoreTaskRequest extends ApiFormRequest
             'title' => 'required|string|max:255',
             'slug' => 'required|string|unique:tasks,slug',
             'description' => 'required|string',
-            'user_id' => 'required|exists:users,id',
             'status' => 'required|in:pending,in progress,completed',
+            'files' => 'required',
+            'files.*' => 'file|mimes:jpg,jpeg,png,pdf,xlsx|max:3072',
         ];
     }
 }

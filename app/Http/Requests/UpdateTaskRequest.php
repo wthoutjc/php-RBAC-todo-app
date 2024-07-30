@@ -20,11 +20,11 @@ class UpdateTaskRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'title' => 'string|max:255',
-            'description' => 'string',
-            'slug' => "string|unique:tasks,slug,{$this->route('task')}",
-            'status' => 'in:pending,in progress,completed',
-            'user_id' => 'exists:users,id',
+            // 'title' => 'string|max:255',
+            // 'slug' => "string|unique:tasks,slug,{$this->route('task')}",
+            // 'description' => 'string',
+            // 'status' => 'in:pending,in progress,completed',
+            // 'files.*' => 'file|mimes:jpg,jpeg,png,pdf,xlsx|max:3072',
         ];
     }
 }

@@ -6,18 +6,23 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Http\Request;
 use App\Services\TaskService;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
     protected $taskService;
+    protected $fileService;
 
     public function __construct(TaskService $taskService)
     {
         $this->taskService = $taskService;
     }
 
-    public function index(Request $request, string $user_id)
+    public function index(Request $request)
     {
+        $user = auth()->guard('sanctum')->user();
+        $user_id = $user->id;
+
         $request->validate([
             'page' => 'integer|min:1',
             'per_page' => 'integer|min:1|max:100',
@@ -35,14 +40,14 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
-        $user = $this->taskService->create($request->validated());
-        return response()->json($user, 201);
+        $task = $this->taskService->create($request);
+        return response()->json($task, 201);
     }
 
     public function update(UpdateTaskRequest $request, $id)
     {
-        $user = $this->taskService->update($request->validated(), $id);
-        return response()->json($user);
+        $task = $this->taskService->update($request, $id);
+        return response()->json($task);
     }
 
     public function destroy($id)

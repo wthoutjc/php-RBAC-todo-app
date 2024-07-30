@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -20,6 +21,8 @@ class UserController extends Controller
     {
         try {
             $user = auth()->guard('sanctum')->user();
+            Log::debug('User me', ['user' => $user]);
+
             return response()->json($user);
         } catch (\Exception $e) {
             dd($e);
@@ -29,12 +32,9 @@ class UserController extends Controller
 
     public function index()
     {
-        $csrfToken = csrf_token();
+        // $csrfToken = csrf_token();
         $users = $this->userService->all();
-        return response()->json([
-            'csrf_token' => $csrfToken,
-            'data' => $users,
-        ]);
+        return response()->json($users);
     }
 
     public function show(Request $request, $id)

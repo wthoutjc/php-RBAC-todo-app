@@ -24,10 +24,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('me', [UserController::class, 'me']);
     Route::get('logout', [AuthController::class, 'logout']);
 
+    // Tasks
+    Route::apiResource('tasks', TaskController::class)->except('index');
+    Route::get('users/tasks', [TaskController::class, 'index'])->name('users.tasks.index');
+
+
     Route::group(['middleware' => ['admin']], function () {
         Route::apiResource('users', UserController::class);
     });
-
-    Route::apiResource('tasks', TaskController::class)->except('index');
-    Route::get('users/{user}/tasks', [TaskController::class, 'index'])->name('users.tasks.index');
 });

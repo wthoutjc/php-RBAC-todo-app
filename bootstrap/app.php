@@ -11,6 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->validateCsrfTokens(except: [
+            'http://localhost:8000/*',
+        ]);
+
         $middleware->alias([
             'admin' => App\Http\Middleware\AdminRoleMiddleware::class,
             'user' => App\Http\Middleware\UserRoleMiddleware::class,

@@ -31,4 +31,12 @@ class Task extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the files for the task.
+     */
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
 }
