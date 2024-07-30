@@ -16,6 +16,17 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    public function me()
+    {
+        try {
+            $user = auth()->guard('sanctum')->user();
+            return response()->json($user);
+        } catch (\Exception $e) {
+            dd($e);
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     public function index()
     {
         $csrfToken = csrf_token();
