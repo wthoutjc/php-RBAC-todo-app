@@ -15,7 +15,7 @@ class AdminRoleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->guard('sanctum')->user()->role !== 'admin') {
+        if (auth()->guard('sanctum')->user()->role->name !== 'admin') {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
