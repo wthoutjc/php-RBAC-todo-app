@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -37,12 +36,8 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    public function show(Request $request, $id)
+    public function show($id)
     {
-        $request->validate([
-            'id' => 'required|uuid|exists:users,id',
-        ]);
-
         $user = $this->userService->find($id);
         return response()->json($user);
     }
