@@ -34,8 +34,16 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $user = $this->taskService->show($id);
-        return response()->json($user);
+        $user = auth()->guard('sanctum')->user();
+        $user_id = $user->id;
+
+        $task = $this->taskService->show($id);
+
+        if ($task->user_id !== $user_id) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        return response()->json($task);
     }
 
     public function store(StoreTaskRequest $request)
@@ -52,6 +60,13 @@ class TaskController extends Controller
 
     public function destroy($id)
     {
+        $user = auth()->guard('sanctum')->user();
+        $task = $this->taskService->show($id);
+
+        if ($task->user_id !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
         $this->taskService->destroy($id);
     }
 }
